@@ -1,0 +1,17 @@
+﻿<Window x:Class="OthelloDesktop.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Othello - Start" Height="200" Width="300">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock Text="Welcome to Othello" 
+                       FontSize="20" 
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
+            <Button Content="Start Game" 
+                    Width="100" Height="30"
+                    Click="StartGameButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
+
