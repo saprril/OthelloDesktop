@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="OthelloDesktop.Views.PlayerSetupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:OthelloDesktop.Views"
+             xmlns:conv="clr-namespace:OthelloDesktop.Converters"
+             Height="400" Width="600">
+
+    <UserControl.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid Background="#222">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" >
+
+            <!-- Title -->
+            <TextBlock Text="Player Setup"
+                       FontSize="22" Foreground="White" 
+                       HorizontalAlignment="Center" Margin="0 0 0 20"/>
+
+            <!-- VS CPU Setup -->
+            <StackPanel Visibility="{Binding IsVsCpu, Converter={StaticResource BoolToVisibilityConverter}}">
+                <TextBlock Text="Enter Your Name:" Foreground="White" Margin="0 0 0 5"/>
+                <TextBox Text="{Binding PlayerName}" Margin="0 0 0 15"/>
+
+                <TextBlock Text="Choose Piece Color:" Foreground="White" Margin="0 0 0 5"/>
+                <ComboBox SelectedItem="{Binding SelectedPieceColor}" Margin="0 0 0 15">
+                    <ComboBoxItem Content="Black" />
+                    <ComboBoxItem Content="White" />
+                </ComboBox>
+            </StackPanel>
+
+            <!-- VS Other Player Setup -->
+            <StackPanel Visibility="{Binding IsVsOtherPlayer, Converter={StaticResource BoolToVisibilityConverter}}">
+                <TextBlock Text="Player 1 (Black):" Foreground="White" Margin="0 0 0 5"/>
+                <TextBox Text="{Binding Player1Name}" Margin="0 0 0 15"/>
+
+                <TextBlock Text="Player 2 (White):" Foreground="White" Margin="0 0 0 5"/>
+                <TextBox Text="{Binding Player2Name}" Margin="0 0 0 15"/>
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
+                <Button Content="Back" Command="{Binding BackCommand}" Width="100" Margin="0 0 10 0"/>
+                <Button Content="Start Game" Command="{Binding StartGameCommand}" Width="100"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

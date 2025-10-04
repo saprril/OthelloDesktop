@@ -11,25 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OthelloDesktop.Converters;
 
-namespace OthelloDesktop
+namespace OthelloDesktop.Views
 {
     /// <summary>
-    /// Interaction logic for StartWindow.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class StartWindow : Window
+    public partial class MenuView : UserControl
     {
-        public StartWindow()
+        public MenuView()
         {
             InitializeComponent();
         }
-
-        private void StartGameButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow main = new MainWindow();
-            main.Show();
-            this.Close();
-        }
     }
-
 }
