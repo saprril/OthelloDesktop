@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OthelloDesktop
+namespace OthelloDesktop.Models.Enums
 {
-    class Class1
+    public enum Piece
     {
+        Empty = 0,
+        Black = 1,
+        White = 2
     }
 }

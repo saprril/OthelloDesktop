@@ -1,10 +1,13 @@
 ﻿using OthelloDesktop.Helpers;
+using OthelloDesktop.Interfaces;
+using OthelloDesktop.Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace OthelloDesktop.ViewModels
@@ -77,11 +80,39 @@ namespace OthelloDesktop.ViewModels
                 mainVm.CurrentViewModel = new MenuViewModel(mainVm);
             });
 
-            //StartGameCommand = new RelayCommand(_ =>
-            //{
-            //    // navigate to game board
-            //    mainVm.CurrentViewModel = new GameBoardViewModel(mainVm);
-            //});
+            StartGameCommand = new RelayCommand(_ =>
+            {
+                List<IPlayer> players = new List<IPlayer>();
+                if (IsVsCpu)
+                {
+                    string parsedColor = SelectedPieceColor?.Split(" ", StringSplitOptions.RemoveEmptyEntries)[^1];
+                    Piece selectedColor = (parsedColor == "Black") ? Piece.Black : Piece.White;
+                    Piece cpuColor = (selectedColor == Piece.Black) ? Piece.White : Piece.Black;
+                    //Debug.WriteLine($"SelectedPieceColor: {SelectedPieceColor}, selectedColor: {selectedColor}, cpuColor: {cpuColor}");
+
+                    IPlayer human = new Models.Player(PlayerName, selectedColor);
+                    IPlayer cpu = new Models.Player("CPU", cpuColor);
+
+                    if (human.PlayerPiece == Piece.Black)
+                    {
+                        players.Add(human);
+                        players.Add(cpu);
+                    }
+                    else
+                    {
+                        players.Add(cpu);
+                        players.Add(human);
+                    }
+
+
+                }
+                else if (IsVsOtherPlayer)
+                {
+                    players.Add(new Models.Player(Player1Name, Piece.Black));
+                    players.Add(new Models.Player(Player2Name, Piece.White));
+                }
+                    mainVm.CurrentViewModel = new GameBoardViewModel(players, IsVsCpu);
+            });
         }
     }
 }

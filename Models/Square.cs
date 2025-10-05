@@ -1,0 +1,23 @@
+﻿using OthelloDesktop.Interfaces;
+using OthelloDesktop.Models.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OthelloDesktop.Models
+{
+    public class Square : ISquare
+    {
+        public Position SquarePosition { get; set; }
+        public Piece SquarePiece { get; set; }
+        public int Value { get; set; }
+        public Square(Position squarePos, Piece squarePiece, int val)
+        {
+            SquarePosition = squarePos;
+            SquarePiece = squarePiece;
+            Value = val;
+        }
+    }
+}
