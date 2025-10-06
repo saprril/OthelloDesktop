@@ -84,11 +84,11 @@ namespace OthelloDesktop.ViewModels
                 UpdateBoard();
                 OnPropertyChanged(nameof(BlackScore));
                 OnPropertyChanged(nameof(WhiteScore));
-                OnPropertyChanged(nameof(IsBlackTurn));
-                OnPropertyChanged(nameof(IsWhiteTurn));
                 if (_gameController.GetValidMoves(_players[(_currentPlayerIndex + 1) % 2].PlayerPiece).Count() != 0)
                 {
                     _currentPlayerIndex = (_currentPlayerIndex + 1) % 2;
+                    OnPropertyChanged(nameof(IsBlackTurn));
+                    OnPropertyChanged(nameof(IsWhiteTurn));
                     if (_isVsComputer)
                     {
                         ComputerTurn();
@@ -134,9 +134,9 @@ namespace OthelloDesktop.ViewModels
                 UpdateBoard();
                 OnPropertyChanged(nameof(BlackScore));
                 OnPropertyChanged(nameof(WhiteScore));
+                _currentPlayerIndex = (_currentPlayerIndex + 1) % 2;
                 OnPropertyChanged(nameof(IsBlackTurn));
                 OnPropertyChanged(nameof(IsWhiteTurn));
-                _currentPlayerIndex = (_currentPlayerIndex + 1) % 2;
             }
             else if (_gameController.IsGameOver())
             {

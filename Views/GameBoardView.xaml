@@ -11,13 +11,21 @@
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" 
-         BorderBrush="LightCyan" 
          BorderThickness="3" 
          CornerRadius="4" 
          Padding="10"
          Width="500" Height="500"
-         HorizontalAlignment="Center" VerticalAlignment="Center"
-         Visibility="{Binding IsBlackTurn, Converter={StaticResource BoolToVisibilityConverter}}">
+         HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderBrush" Value="Gold"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsBlackTurn}" Value="False">
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
             <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="{Binding BlackPlayer.Name}" 
                    Foreground="White" FontSize="18" FontWeight="Bold"/>
@@ -73,9 +81,16 @@
                 Padding="10"
                 Width="500" Height="500"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border.BorderBrush>
-                <SolidColorBrush Color="LightCyan" Opacity="0.5"/>
-            </Border.BorderBrush>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderBrush" Value="Gold"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsWhiteTurn}" Value="False">
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
 
             <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="{Binding WhitePlayer.Name}" 
