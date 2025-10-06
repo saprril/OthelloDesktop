@@ -8,4 +8,18 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\Game Over.png" />
+    <None Remove="Assets\Othello.png" />
+    <None Remove="Assets\OthelloBackground.jpg" />
+    <None Remove="Assets\OthelloBackgroundPixel.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Game Over.png" />
+    <Resource Include="Assets\Othello.png" />
+    <Resource Include="Assets\OthelloBackground.jpg" />
+    <Resource Include="Assets\OthelloBackgroundPixel.png" />
+  </ItemGroup>
+
 </Project>

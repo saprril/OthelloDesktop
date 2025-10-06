@@ -4,7 +4,11 @@
         xmlns:views="clr-namespace:OthelloDesktop.Views"
         Title="Othello Game" Height="800" Width="1200">
 
-    <Grid Background="#222">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/OthelloBackgroundPixel.png"
+                    Stretch="UniformToFill"/>
+        </Grid.Background>
         <!-- Initially load MenuView -->
         <views:MenuView />
         <ContentControl Content="{Binding CurrentViewModel}" />

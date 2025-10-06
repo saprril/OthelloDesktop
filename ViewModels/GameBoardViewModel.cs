@@ -26,8 +26,11 @@ namespace OthelloDesktop.ViewModels
         public IPlayer BlackPlayer => _players.Where(p => p.PlayerPiece == Piece.Black).FirstOrDefault();
         public IPlayer WhitePlayer => _players.Where(p => p.PlayerPiece == Piece.White).FirstOrDefault();
 
-        public int BlackScore => _gameController.CountPieces(Piece.Black);
-        public int WhiteScore => _gameController.CountPieces(Piece.White);
+        public int BlackScore => _gameController.CountPieces(Piece.White);
+        public int WhiteScore => _gameController.CountPieces(Piece.Black);
+
+        public bool IsBlackTurn => _players[_currentPlayerIndex].PlayerPiece == Piece.Black;
+        public bool IsWhiteTurn => _players[_currentPlayerIndex].PlayerPiece == Piece.White;
 
         public ObservableCollection<SquareViewModel> Squares { get; }
 
@@ -81,6 +84,8 @@ namespace OthelloDesktop.ViewModels
                 UpdateBoard();
                 OnPropertyChanged(nameof(BlackScore));
                 OnPropertyChanged(nameof(WhiteScore));
+                OnPropertyChanged(nameof(IsBlackTurn));
+                OnPropertyChanged(nameof(IsWhiteTurn));
                 if (_gameController.GetValidMoves(_players[(_currentPlayerIndex + 1) % 2].PlayerPiece).Count() != 0)
                 {
                     _currentPlayerIndex = (_currentPlayerIndex + 1) % 2;
@@ -109,10 +114,7 @@ namespace OthelloDesktop.ViewModels
                     }
                     _mainVm.CurrentViewModel = new GameOverViewModel(_mainVm, result);
                 }
-                else if (_gameController.GetValidMoves(_players[_currentPlayerIndex].PlayerPiece).Count() != 0)
-                {
-                    Debug.WriteLine("No Valid Moves for Opponent. Play Again");
-                }
+                Debug.WriteLine($"{_currentPlayerIndex} next turn");
             }
 
         }
@@ -132,6 +134,8 @@ namespace OthelloDesktop.ViewModels
                 UpdateBoard();
                 OnPropertyChanged(nameof(BlackScore));
                 OnPropertyChanged(nameof(WhiteScore));
+                OnPropertyChanged(nameof(IsBlackTurn));
+                OnPropertyChanged(nameof(IsWhiteTurn));
                 _currentPlayerIndex = (_currentPlayerIndex + 1) % 2;
             }
             else if (_gameController.IsGameOver())

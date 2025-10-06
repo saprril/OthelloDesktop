@@ -9,7 +9,10 @@
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid Background="#222">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#222222" Opacity="0.99"/>
+        </Grid.Background>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" >
 
             <!-- Title -->

@@ -6,22 +6,25 @@
              mc:Ignorable="d"
              Height="400" Width="600">
 
-    <Grid Background="#222">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#222222" Opacity="0.65"/>
+        </Grid.Background>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
 
             <!-- Title -->
-            <TextBlock Text="Othello Game"
-                       FontSize="24"
-                       Foreground="White"
-                       HorizontalAlignment="Center"
-                       Margin="0 0 0 30"/>
+            <Image Source="/OthelloDesktop;component/Assets/Othello.png"
+               Width="250"
+               Height="80"
+               Stretch="Uniform"
+               Margin="0,0,0,20"/>
 
             <!-- Buttons -->
-            <Button Content="VS CPU" 
+            <Button Content="Single Player" 
                     Command="{Binding VsCpuCommand}" 
                     Width="200" Height="40" Margin="0 0 0 15"/>
 
-            <Button Content="VS Other Player" 
+            <Button Content="Multi Player" 
                     Command="{Binding VsOtherPlayerCommand}" 
                     Width="200" Height="40" Margin="0 0 0 15"/>
 
