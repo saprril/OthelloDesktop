@@ -21,6 +21,7 @@ namespace OthelloDesktop.ViewModels
         private int _currentPlayerIndex = 0;
         private bool _isVsComputer;
         private Position? lastPosition;
+        private MainWindowViewModel _mainVm;
 
         public IPlayer BlackPlayer => _players.Where(p => p.PlayerPiece == Piece.Black).FirstOrDefault();
         public IPlayer WhitePlayer => _players.Where(p => p.PlayerPiece == Piece.White).FirstOrDefault();
@@ -32,7 +33,7 @@ namespace OthelloDesktop.ViewModels
 
         public ICommand SquareClickCommand { get; }
 
-        public GameBoardViewModel(List<IPlayer> players, bool isVersusComputer)
+        public GameBoardViewModel(List<IPlayer> players, bool isVersusComputer, MainWindowViewModel mainVm)
         {
             _players = players;
             _isVsComputer = isVersusComputer;
@@ -60,6 +61,7 @@ namespace OthelloDesktop.ViewModels
             }
 
             SquareClickCommand = new RelayCommand<SquareViewModel>(OnSquareClicked);
+            _mainVm = mainVm;
 
             //UpdateBoard();
         }
@@ -87,7 +89,27 @@ namespace OthelloDesktop.ViewModels
                         ComputerTurn();
                     }
                 }
-                else
+                else if (_gameController.IsGameOver())
+                {
+                    Debug.WriteLine("No Valid Moves for Both Players. Game Over");
+                    var blackScore = _gameController.CountPieces(Piece.Black);
+                    var whiteScore = _gameController.CountPieces(Piece.White);
+                    string result;
+                    if (blackScore > whiteScore)
+                    {
+                        result = $"Black Wins! {blackScore} to {whiteScore}";
+                    }
+                    else if (whiteScore > blackScore)
+                    {
+                        result = $"White Wins! {whiteScore} to {blackScore}";
+                    }
+                    else
+                    {
+                        result = $"It's a Tie! {blackScore} to {whiteScore}";
+                    }
+                    _mainVm.CurrentViewModel = new GameOverViewModel(_mainVm, result);
+                }
+                else if (_gameController.GetValidMoves(_players[_currentPlayerIndex].PlayerPiece).Count() != 0)
                 {
                     Debug.WriteLine("No Valid Moves for Opponent. Play Again");
                 }

@@ -111,7 +111,7 @@ namespace OthelloDesktop.ViewModels
                     players.Add(new Models.Player(Player1Name, Piece.Black));
                     players.Add(new Models.Player(Player2Name, Piece.White));
                 }
-                    mainVm.CurrentViewModel = new GameBoardViewModel(players, IsVsCpu);
+                    mainVm.CurrentViewModel = new GameBoardViewModel(players, IsVsCpu, mainVm);
             });
         }
     }

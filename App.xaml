@@ -18,5 +18,8 @@
         <DataTemplate DataType="{x:Type vm:GameBoardViewModel}">
             <views:GameBoardView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GameOverViewModel}">
+            <views:GameOverView />
+        </DataTemplate>
     </Application.Resources>
 </Application>
