@@ -79,10 +79,17 @@ namespace OthelloDesktop.ViewModels
                 UpdateBoard();
                 OnPropertyChanged(nameof(BlackScore));
                 OnPropertyChanged(nameof(WhiteScore));
-                _currentPlayerIndex = (_currentPlayerIndex + 1) % 2;
-                if (_isVsComputer)
+                if (_gameController.GetValidMoves(_players[(_currentPlayerIndex + 1) % 2].PlayerPiece).Count() != 0)
                 {
-                    ComputerTurn();
+                    _currentPlayerIndex = (_currentPlayerIndex + 1) % 2;
+                    if (_isVsComputer)
+                    {
+                        ComputerTurn();
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("No Valid Moves for Opponent. Play Again");
                 }
             }
 
@@ -162,6 +169,10 @@ namespace OthelloDesktop.ViewModels
                                                       Brushes.Transparent;
                     Squares[row * 8 + col].HasPiece = (piece != Piece.Empty);
                     var validMoves = _gameController.GetValidMoves(_players[(_currentPlayerIndex + 1)%2].PlayerPiece);
+                    if (validMoves.Count() == 0)
+                    {
+                        validMoves = _gameController.GetValidMoves(_players[_currentPlayerIndex].PlayerPiece);
+                    }
 
                     if (validMoves.Contains(new Position
                     {
