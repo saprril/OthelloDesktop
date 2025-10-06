@@ -11,15 +11,13 @@
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" 
+         BorderBrush="LightCyan" 
          BorderThickness="3" 
          CornerRadius="4" 
          Padding="10"
          Width="500" Height="500"
          HorizontalAlignment="Center" VerticalAlignment="Center"
-                >
-            <Border.BorderBrush Visibility="{Binding IsWhiteTurn, Converter={StaticResource BoolToVisibilityConverter}}">
-                <SolidColorBrush Color="LightCyan" Opacity="0.5"/>
-            </Border.BorderBrush>
+         Visibility="{Binding IsBlackTurn, Converter={StaticResource BoolToVisibilityConverter}}">
             <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="{Binding BlackPlayer.Name}" 
                    Foreground="White" FontSize="18" FontWeight="Bold"/>
@@ -75,8 +73,8 @@
                 Padding="10"
                 Width="500" Height="500"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border.BorderBrush Visibility="{Binding IsWhiteTurn, Converter={StaticResource BoolToVisibilityConverter}}">
-                <SolidColorBrush Color="Yellow" Opacity="0.5"/>
+            <Border.BorderBrush>
+                <SolidColorBrush Color="LightCyan" Opacity="0.5"/>
             </Border.BorderBrush>
 
             <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
