@@ -134,51 +134,32 @@ namespace OthelloDesktop.ViewModels
                 OnPropertyChanged(nameof(WhiteScore));
                 _currentPlayerIndex = (_currentPlayerIndex + 1) % 2;
             }
-        }
-
-        private void InitializeBoard()
-        {
-            for (int row = 0; row < 8; row++)
+            else if (_gameController.IsGameOver())
             {
-                for (int col = 0; col < 8; col++)
+                Debug.WriteLine("No Valid Moves for Both Players. Game Over");
+                var blackScore = _gameController.CountPieces(Piece.Black);
+                var whiteScore = _gameController.CountPieces(Piece.White);
+                string result;
+                if (blackScore > whiteScore)
                 {
-                    var state = _gameController.GetSquarePiece(new Position
-                    {
-                        Column = col,
-                        Row = row
-                    }); 
-
-                    var squareVm = new SquareViewModel(row, col, state);
-
-                    var validMoves = _gameController.GetValidMoves(_players[(_currentPlayerIndex + 1) % 2].PlayerPiece);
-                    if (validMoves.Contains(new Position
-                    {
-                        Column = col,
-                        Row = row
-                    }))
-                    {
-                        squareVm.BackgroundColor = Brushes.YellowGreen; // Highlight valid move
-                    }
-
-
-                    if (state == Piece.Black)
-                    {
-                        squareVm.PieceColor = Brushes.Black;
-                        squareVm.HasPiece = true;
-                    }
-                    else if (state == Piece.White)
-                    {
-                        squareVm.PieceColor = Brushes.White;
-                        squareVm.HasPiece = true;
-                    }
-                    else
-                    {
-                        squareVm.HasPiece = false;
-                    }
-                    Squares.Add(squareVm);
+                    result = $"Black Wins! {blackScore} to {whiteScore}";
                 }
+                else if (whiteScore > blackScore)
+                {
+                    result = $"White Wins! {whiteScore} to {blackScore}";
+                }
+                else
+                {
+                    result = $"It's a Tie! {blackScore} to {whiteScore}";
+                }
+                _mainVm.CurrentViewModel = new GameOverViewModel(_mainVm, result);
+            }
+            else if (_gameController.GetValidMoves(_players[_currentPlayerIndex].PlayerPiece).Count() != 0)
+            {
+                Debug.WriteLine("No Valid Moves for Opponent. Play Again");
             }
         }
+
         private void UpdateBoard()
         {
             for (int row = 0; row < 8; row++)
